@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nour — Competitor Monitor</title>
+  <meta name="description" content="Track competitor Instagram stories, posts, and reels in one clean dashboard." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ── Sidebar ──────────────────────────────────────────────── -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">
+        <span class="logo-icon">✦</span>
+        <div>
+          <div class="logo-title">Nour Monitor</div>
+          <div class="logo-sub">Competitor Intel</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-section-label">Stats</div>
+    <div class="stats-grid" id="stats-grid">
+      <div class="stat-card"><span class="stat-val" id="stat-competitors">—</span><span class="stat-key">Accounts</span></div>
+      <div class="stat-card"><span class="stat-val" id="stat-stories">—</span><span class="stat-key">Stories</span></div>
+      <div class="stat-card"><span class="stat-val" id="stat-posts">—</span><span class="stat-key">Posts</span></div>
+      <div class="stat-card"><span class="stat-val" id="stat-reels">—</span><span class="stat-key">Reels</span></div>
+    </div>
+
+    <div class="sidebar-section-label">Competitors</div>
+    <nav class="competitor-list" id="competitor-list">
+      <div class="loading-pulse">Loading accounts…</div>
+    </nav>
+
+    <div class="sidebar-footer">
+      <button class="btn-refresh" id="btn-refresh" onclick="refreshData()">
+        <span class="refresh-icon">↻</span> Refresh
+      </button>
+      <div class="sidebar-hint">Run <code>python scrape.py</code> to fetch new content.</div>
+    </div>
+  </aside>
+
+  <!-- ── Main ─────────────────────────────────────────────────── -->
+  <main class="main" id="main">
+
+    <!-- Header -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <h1 class="page-title" id="page-title">All Competitors</h1>
+        <span class="page-subtitle" id="page-subtitle">Select an account from the sidebar</span>
+      </div>
+      <div class="topbar-right">
+        <div class="tab-bar" id="tab-bar">
+          <button class="tab active" data-tab="all" onclick="setTab('all')">All</button>
+          <button class="tab" data-tab="stories" onclick="setTab('stories')">Stories</button>
+          <button class="tab" data-tab="posts" onclick="setTab('posts')">Posts</button>
+          <button class="tab" data-tab="reels" onclick="setTab('reels')">Reels</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Content grid -->
+    <section class="content-area" id="content-area">
+      <div class="empty-state" id="empty-state">
+        <div class="empty-icon">📂</div>
+        <h2>No content yet</h2>
+        <p>Add competitor handles to <code>config.json</code> and run <code>python scrape.py</code> to download their content.</p>
+      </div>
+      <div class="media-grid" id="media-grid"></div>
+    </section>
+
+  </main>
+
+  <!-- ── Lightbox ──────────────────────────────────────────────── -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+    <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+    <div class="lightbox-inner" id="lightbox-inner">
+      <div class="lightbox-media-wrap" id="lightbox-media-wrap"></div>
+      <div class="lightbox-info" id="lightbox-info"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
